@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вхід</title>
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #000;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 350px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        h1 .hub {
+            background-color: #ff9900;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 5px;
+            margin-left: 2px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            text-align: left;
+            margin-bottom: 5px;
+            color: #aaa;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            background-color: #333;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff9900;
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e68a00;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 25px 0;
+        }
+        .link-container a {
+            color: #ff9900;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+        .error, .logout {
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .error {
+            background-color: #d32f2f;
+            color: #fff;
+        }
+        .logout {
+            background-color: #388e3c;
+            color: #fff;
+        }
+        .google-btn {
+            background-color: #4285F4;
+            color: white;
+        }
+        .google-btn:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Вхід до<span class="hub">Системи</span></h1>
+
+    <form th:action="@{/login}" method="post">
+        <label for="username">Ім'я користувача:</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Увійти</button>
+    </form>
+
+    <hr/>
+
+    <div>
+        <a th:href="@{/oauth2/authorization/google}">
+            <button type="button" class="google-btn">Увійти через Google</button>
+        </a>
+    </div>
+
+    <div class="link-container" style="margin-top: 20px;">
+        <span>Не маєш акаунта? <a th:href="@{/register}">Зареєструватися</a></span>
+    </div>
+
+    <div th:if="${param.error}" class="error">
+        Невірне ім’я користувача або пароль
+    </div>
+
+    <div th:if="${param.logout}" class="logout">
+        Ви вийшли із системи
+    </div>
+</div>
+</body>
+</html>
